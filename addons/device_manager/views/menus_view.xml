@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Device menu item -->
+    <menuitem id="device_menu_root"
+              name="Device"
+              sequence="5"
+              web_icon="device_manager,static/description/device.png"/>
+
+    <!-- Device Menu -->
+    <menuitem id="device_menu_devices"
+              parent="device_menu_root"
+              sequence="1"
+              name="Devices"/>
+
+    <!-- Configuration -->
+    <menuitem id="device_config_menu"
+              name="Configuration"
+              parent="device_menu_root"
+              sequence="99"/>
+
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="device_job_view_tree" model="ir.ui.view">
+        <field name="name">device.job.tree</field>
+        <field name="model">device.job</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="job_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="device_job_view_form" model="ir.ui.view">
+        <field name="name">device.job.form</field>
+        <field name="model">device.job</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_download_files" type='object' class="oe_highlight o_wow o_connector_wk_test" string='Download File' />
+                    <button name="action_process_files" type='object' class="oe_highlight o_wow o_connector_wk_test" string='Proccess File' />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="job_type" />
+                            <field name="run_active" widget="boolean_toggle" />
+                            <field name="ftp_id" attrs="{'invisible': [('job_type', '=', 'file')]}" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="device_file_path" />
+                            <field name="content_file_path" />
+                        </group>
+                        <group>
+                            <field name="device_attachment_id" />
+                            <field name="content_attachment_id" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="device_job_search_view" model="ir.ui.view">
+        <field name="name">device.job.search</field>
+        <field name="model">device.job</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="job_type" />
+            </search>
+        </field>
+    </record>
+
+    <record id="device_job_action" model="ir.actions.act_window">
+        <field name="name">Device Job</field>
+        <field name="res_model">device.job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="device_job_search_view" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Device Job
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="device_job_menu" action="device_job_action" name="Device Job" sequence="1" parent="device_manager.device_config_menu" />
+
+</odoo>

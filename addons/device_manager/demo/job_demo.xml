@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="device_job_demo" model="device.job">
+            <field name="name">Test FTP</field>
+            <field name="job_type">ftp</field>
+            <field name="run_active">True</field>
+            <field name="ftp_id" ref="ftp_connector.ftp_connector_demo"/>
+            <field name="device_file_path">devices.csv</field>
+            <field name="content_file_path">content.csv</field>
+        </record>
+        <record id="device_job_demo_2" model="device.job">
+            <field name="name">Test Local File</field>
+            <field name="job_type">file</field>
+            <field name="run_active">False</field>
+            <field name="device_file_path">/mnt/odoo/data/devices.csv</field>
+            <field name="content_file_path">/mnt/odoo/data/content.csv</field>
+        </record>
+    </data>
+
+</odoo>

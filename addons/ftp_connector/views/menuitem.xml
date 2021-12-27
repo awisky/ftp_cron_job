@@ -1,0 +1,17 @@
+<odoo>
+
+    <!-- Menus -->
+    <menuitem
+        id="ftp_root_menu"
+        name="FTP"
+        parent="base.menu_custom"
+        sequence="10"/>
+
+    <menuitem
+        id="ftp_connector_menu"
+        name="FTP Connector"
+        parent="ftp_root_menu"
+        action="ftp_connector_action"
+        sequence="10"/>
+
+</odoo>

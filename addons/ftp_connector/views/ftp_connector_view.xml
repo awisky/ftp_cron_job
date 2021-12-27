@@ -1,0 +1,65 @@
+<odoo>
+
+    <record id="view_ftp_connector_tree" model="ir.ui.view">
+        <field name="name">ftp.connector.tree</field>
+        <field name="model">ftp.connector</field>
+        <field name="arch" type="xml">
+            <tree string="FTP Connector">
+                <field name="name"/>
+                <field name="host"/>
+                <field name="port"/>
+                <field name="connection_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ftp_connector_form" model="ir.ui.view">
+        <field name="name">ftp.connector.form</field>
+        <field name="model">ftp.connector</field>
+        <field name="arch" type="xml">
+            <form string="FTP Connector">
+                <header>
+                    <button name="test_connection" type='object' icon="fa-pencil-square-o" class="oe_highlight o_wow o_connector_wk_test" string='Test Connection' />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,connect" />
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Connected" bg_color="bg-success" attrs="{'invisible': [('state','not in', ('connect', ))]}" />
+                    <widget name="web_ribbon" title="Not Connected" bg_color="bg-danger" attrs="{'invisible': ['|', ('state','not in', ('error', )), ('connect_message','=', False)]}" />
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+
+                    <group>
+                        <group id="left">
+                            <field name="connect_message" invisible="1"/>
+                            <field name="host"/>
+                            <field name="port"/>
+                            <field name="connection_type"/>
+                        </group>
+                        <group String="Credentials">
+                            <field name="user"/>
+                            <field name="password" password="True"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ftp_connector_action">
+        <field name="name">FTP Connector</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ftp.connector</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

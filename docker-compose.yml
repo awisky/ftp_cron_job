@@ -1,0 +1,58 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.7
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: always       
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    networks:
+      odoo-sync:
+        ipv4_address: 172.22.0.2
+  odoo:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    tty: true
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config/odoo.conf:/etc/odoo/odoo.conf
+      - ./addons:/mnt/odoo/addons
+      - ./addons_external:/mnt/odoo/addons_external
+    networks:
+      odoo-sync:
+        ipv4_address: 172.22.0.3
+  vsftpd:
+    image: fauria/vsftpd
+    environment:
+        - FTP_USER=odoo
+        - FTP_PASS=odoo
+        - PASV_ADDRESS=172.22.0.4
+    ports:
+        - "20:20"
+        - "21:21"
+        - "21100-21110:21100-21110"
+    volumes:
+        - ./data/ftp/:/home/vsftpd
+    networks:
+      odoo-sync:
+        ipv4_address: 172.22.0.4
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+networks:
+  odoo-sync:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+          gateway: 172.22.0.1
+

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="device_device_view_tree" model="ir.ui.view">
+        <field name="name">device.device.tree</field>
+        <field name="model">device.device</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="external_id" />
+                <field name="name"/>
+                <field name="description" optional="hide"/>
+                <field name="code"/>
+                <field name="expire_date"/>
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="device_device_view_form" model="ir.ui.view">
+        <field name="name">device.device.form</field>
+        <field name="model">device.device</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="external_id" />
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="description" />
+                        </group>
+                        <group>
+                            <field name="expire_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="content_ids" mode="tree" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="external_id" />
+                                    <field name="name"/>
+                                    <field name="description" optional="hide"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="device_device_search_view" model="ir.ui.view">
+        <field name="name">device.device.search</field>
+        <field name="model">device.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="code" />
+                <field name="description" />
+                <separator/>
+                <filter string="" domain="[('state', '=', 'enabled')]" name="Enabled"/>
+                <filter string="" domain="[('state', '=', 'disabled')]" name="Disabled"/>
+                <filter string="" domain="[('state', '=', 'deleted')]" name="Deleted"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter name="state" context="{'group_by' : 'state'}" string="State"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="device_device_action" model="ir.actions.act_window">
+        <field name="name">Device</field>
+        <field name="res_model">device.device</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="device_device_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Device
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="device_device_menu" action="device_device_action" name="Device" sequence="1" parent="device_manager.device_menu_devices"/>
+
+</odoo>

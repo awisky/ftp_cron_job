@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ftp_connector_demo" model="ftp.connector">
+            <field name="name">Test</field>
+            <field name="host">172.22.0.4</field>
+            <field name="user">odoo</field>
+            <field name="password">odoo</field>
+            <field name="port">21</field>
+        </record>
+    </data>
+
+</odoo>
