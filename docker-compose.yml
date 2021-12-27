@@ -45,6 +45,17 @@ services:
     networks:
       odoo-sync:
         ipv4_address: 172.22.0.4
+  sftpd:
+    image: atmoz/sftp
+    ports:
+        - "2222:22"
+    volumes:
+        - ./data/ftp:/home/odoo/data
+    command: odoo:odoo:1001
+    networks:
+      odoo-sync:
+        ipv4_address: 172.22.0.5
+  
 volumes:
   odoo-web-data:
   odoo-db-data:

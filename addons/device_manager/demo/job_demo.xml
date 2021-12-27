@@ -16,6 +16,14 @@
             <field name="device_file_path">/mnt/odoo/data/devices.csv</field>
             <field name="content_file_path">/mnt/odoo/data/content.csv</field>
         </record>
+        <record id="device_job_demo_3" model="device.job">
+            <field name="name">Test SFTP</field>
+            <field name="job_type">ftp</field>
+            <field name="run_active">True</field>
+            <field name="ftp_id" ref="ftp_connector.ftp_connector_demo_2"/>
+            <field name="device_file_path">/data/odoo/devices.csv</field>
+            <field name="content_file_path">/data/odoo/content.csv</field>
+        </record>
     </data>
 
 </odoo>

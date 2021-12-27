@@ -306,8 +306,9 @@ class DeviceJob(models.Model):
         self.process_content_file()
 
     def action_run_job(self):
-        self.action_download_files()
-        self.action_process_files()
+        for job in self:
+            job.action_download_files()
+            job.action_process_files()
 
     @api.model
     def _process_job_files(self, limit=10):

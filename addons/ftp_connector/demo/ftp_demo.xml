@@ -2,11 +2,20 @@
 <odoo>
     <data noupdate="1">
         <record id="ftp_connector_demo" model="ftp.connector">
-            <field name="name">Test</field>
+            <field name="name">FTP test server</field>
             <field name="host">172.22.0.4</field>
             <field name="user">odoo</field>
             <field name="password">odoo</field>
+            <field name="connection_type">ftp</field>
             <field name="port">21</field>
+        </record>
+        <record id="ftp_connector_demo_2" model="ftp.connector">
+            <field name="name">SFTP test server</field>
+            <field name="host">172.22.0.5</field>
+            <field name="user">odoo</field>
+            <field name="password">odoo</field>
+            <field name="connection_type">sftp</field>
+            <field name="port">22</field>
         </record>
     </data>
 
